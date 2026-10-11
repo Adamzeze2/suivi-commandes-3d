@@ -246,9 +246,16 @@ document.getElementById("signupForm").addEventListener("submit",async e=>{
   const name=document.getElementById("signupName").value.trim();
   const email=document.getElementById("signupEmail").value.trim();
   const password=document.getElementById("signupPassword").value;
+  
   const {data,error}=await db.auth.signUp({
-    email,password,options:{data:{display_name:name}}
+    email,
+    password,
+    options: {
+      emailRedirectTo: "https://adamzeze2.github.io/suivi-commandes-3d/",
+      data: { display_name: name }
+    }
   });
+
   if(error){say("Inscription impossible : "+error.message);return;}
   if(data.session){await loadAccount();}
   else{say("Compte créé ! Vérifie ta boîte e-mail pour confirmer ton inscription, puis connecte-toi.");}
